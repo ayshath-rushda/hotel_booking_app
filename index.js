@@ -23,9 +23,9 @@ const connect = async () => {
     handleError(error);
   }
 };
-mongoose.connection.on("disconnected", ()=>{
-    console.log("mongodb is disconnected");
-    
+mongoose.connection.on("disconnected", () => {
+  console.log("mongodb is disconnected");
+
 })
 
 
@@ -37,25 +37,27 @@ app.use(express.json())
 
 
 //then check all routers one by one
-app.use("/api/auth",authRoute);
-app.use("/api/users",usersRoute);
-app.use("/api/hotels" , hotelsRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/users", usersRoute);
+app.use("/api/hotels", hotelsRoute);
 //while checking hotelrouter its says next(), then it goes inside the next middleware
-app.use("/api/rooms",roomsRoute);
+app.use("/api/rooms", roomsRoute);
 
-  app.use((err,req,res,next)=>{
-    const errorStatus = err.status || 500
-    const errorMessage = err.message || "something went wrong"
-    return res.status(errorStatus).json({
-      success:false,
-      status:errorStatus,
-      message:errorMessage,
-      stack:err.stack
-    });
+//error handling middleware
+app.use((err, req, res, next) => {
+  console.log("error handling middleware called");
+  const errorStatus = err.status || 500
+  const errorMessage = err.message || "something went wrong"
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack
+  });
 });
 
 
-app.listen(9000 ,()=>{
-    connect()
-    console.log("backend connected")
+app.listen(9000, () => {
+  connect()
+  console.log("backend connected")
 });
