@@ -63,3 +63,12 @@ export const getHotels = async (req, res, next) => {
         next(err);
     }
 }
+export const countBycity = async (req, res, next) => {
+    try {
+        const hotels = await Hotel.find();
+        res.status(200).json(hotels)
+
+    } catch (err) {
+        next(err);
+    }
+}

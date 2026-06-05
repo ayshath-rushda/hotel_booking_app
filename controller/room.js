@@ -9,10 +9,10 @@ export const createRoom = async (req, res, next) => {
 
     try {
         const savedRoom = await newRoom.save()
+        
         try {
-            await Room.findByIdAndUpdate(hotelId, {
+            const updatedHotel = await Hotel.findByIdAndUpdate(hotelId, {
                 $push:{rooms:savedRoom._id},
-            
             });
         } catch (err) {
             next(err);
@@ -42,11 +42,9 @@ export const deleteRoom = async (req, res, next) => {
     try {
         await Room.findByIdAndDelete(
             req.params.id,
-          //  { $set: req.body },
-           //{ new: true }
         );
         try {
-            await Room.findByIdAndUpdate(hotelId, {
+            await Hotel.findByIdAndUpdate(hotelId, {
               
                 $pull:{rooms:req.params.id},
                  
