@@ -19,27 +19,21 @@ export const verifyToken = (req, res, next) => {
 
 
 export const verifyUser = (req, res, next) => {
-   verifyToken(req, res, next,() => {
-      console.log(req.user.id, req.params.id);
+   verifyToken(req, res, () => {
       if (req.user.id === req.params.id || req.user.isAdmin) {
          next()
       } else {
-         if (err)
-            return next(createError(402, "u are not autherised"));
+         return next(createError(402, "u are not authorised"));
       }
    });
-
 }
 
 export const verifyAdmin = (req, res, next) => {
-   verifyToken(req, res,next, () => {
-      console.log(req.user.id, req.params.id);
+   verifyToken(req, res, () => {
       if (req.user.isAdmin) {
          next()
       } else {
-         if (err)
-            return next(createError(402, "u are not autherised"));
+         return next(createError(402, "u are not authorised"));
       }
    });
-
 }

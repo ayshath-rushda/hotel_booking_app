@@ -1,5 +1,5 @@
 import express from "express";
-import { updateUser,deleteUser,getUser,getUsers } from "../controller/user.js";
+import { createUser, updateUser, deleteUser, getUser, getUsers } from "../controller/user.js";
 import { verifyToken, verifyUser,verifyAdmin} from "../util/verifyToken.js";
 
 const router = express.Router();
@@ -16,6 +16,9 @@ router.get("/checkuser/:id",verifyUser,(req,res,next)=>{
 router.get("/checkadmin/:id",verifyAdmin,(req,res,next)=>{
     res.send("hello admin,u are loged in and u can delete  all acc");
 });*/
+
+//create User
+router.post("/", verifyAdmin, createUser);
 
 //update User
 router.put("/:id", verifyUser, updateUser);

@@ -5,6 +5,7 @@ import authRoute from "./routes/auth.js";
 import hotelsRoute from "./routes/hotels.js";
 import usersRoute from "./routes/users.js";
 import roomsRoute from "./routes/rooms.js";
+import bookingRoute from "./routes/booking.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -45,6 +46,7 @@ app.use("/api/users", usersRoute);
 app.use("/api/hotels", hotelsRoute);
 //while checking hotelrouter its says next(), then it goes inside the next middleware
 app.use("/api/rooms", roomsRoute);
+app.use("/api/bookings", bookingRoute);
 
 //error handling middleware
 app.use((err, req, res, next) => {
